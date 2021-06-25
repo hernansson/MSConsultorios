@@ -1,0 +1,28 @@
+[{
+    "id":1,
+    "user": "hernan",
+    "password":"1234",
+    "profesion":"ingeniero",
+    "DNI": 35989354
+},
+{   
+    "id":2,
+    "user": "julian",
+    "password":"1234",
+    "profesion":"Se rasca"
+},
+{   
+    "id":3,
+    "user": "rodrigo",
+    "password":"1234",
+    "profesion":"lava Autos"
+},
+{   
+    "id":4,
+    "user": "roberto",
+    "password":"4321",
+    "profesion":"arquitecto"
+
+}
+
+]
