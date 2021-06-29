@@ -102,7 +102,24 @@ let modalBack = document.getElementById('loginModal-backdrop')
 let modal = document.getElementById('loginModal');
 window.onclick = function (event) {
   if (event.target == modalBack) {
-    modal.classList.toggle("hidden");
     document.getElementById('loginModal-backdrop').classList.toggle("hidden");
+    modal.classList.toggle("hidden");
   }
+}
+
+
+class Medicos {
+  constructor(user, password, name, surname, birthdate, profession, specialty) {
+    this.user = user;
+    this.password = password;
+    this.name = name;
+    this.surname = surname;
+    this.birthdate = birthdate;
+    this.profession = profession;
+    this.specialty = specialty;
+  }
+
+
+
+
 }
