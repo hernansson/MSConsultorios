@@ -231,11 +231,6 @@ display: grid;
 .imagen3 { grid-area: imagen3; }
 .imagen4 { grid-area: imagen4; }
 
-/***************************************************MAINBODY**********************************************************/
-.mainBody{
-    padding-top: 70px;
-}
-
 @media (max-width: 1024px) {
     
     .grid-container{
