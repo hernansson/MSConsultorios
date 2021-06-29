@@ -75,15 +75,16 @@ function registerUser(myForm) {
   //ESTO ME DA GRACIA Y CANCER OCULAR, PERO NO SABIA SI CREAR UNAS VARIABLES, PARA QUE SEA MAS DECLARATIVO, O MANDARLE ASI DE FEO.
   const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
   var innerData = '';
-  for (let i = 0; i < 8; i++) {
 
-    innerData = innerData + '<li>' + myForm[i].value + '</li>';
-
-  };
 
   let convertirObjArray = Object.values(newMedic);
   let arrayOrdenadoAsc = convertirObjArray.sort();
-  console.log(arrayOrdenadoAsc)
+  for (let i = 0; i < 8; i++) {
+
+    innerData = innerData + '<li>' + arrayOrdenadoAsc[i] + '</li>';
+
+  };
+
   document.querySelector('.academic').innerHTML = innerData;
 
 }
