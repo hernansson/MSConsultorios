@@ -62,6 +62,31 @@ function showData(data) {
 
 }
 
+function OpenRegister() {
+  let modal = document.getElementById('register');
+  modal.classList.toggle("hidden");
+  document.getElementById('loginModal-backdrop').classList.toggle("hidden");
+  //modal.style.display = 'block';
+  hideAll();
+}
+
+function registerUser(myForm) {
+
+  //ESTO ME DA GRACIA Y CANCER OCULAR, PERO NO SABIA SI CREAR UNAS VARIABLES, PARA QUE SEA MAS DECLARATIVO, O MANDARLE ASI DE FEO.
+  const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
+  var innerData = '';
+  for (let i = 0; i < 8; i++) {
+
+    innerData = innerData + '<li>' + myForm[i].value + '</li>';
+
+  };
+
+  let convertirObjArray = Object.values(newMedic);
+  let arrayOrdenadoAsc = convertirObjArray.sort();
+  console.log(arrayOrdenadoAsc)
+  document.querySelector('.academic').innerHTML = innerData;
+
+}
 
 function Openform() {
   let modal = document.getElementById('loginModal');
@@ -99,24 +124,35 @@ setInterval(function () {
 
 // ESTO ESTA PARA EL ORTO PERO FUNCIONA.. 
 let modalBack = document.getElementById('loginModal-backdrop')
-let modal = document.getElementById('loginModal');
+let modalLogin = document.getElementById('loginModal');
+let modalRegister = document.getElementById('register');
 window.onclick = function (event) {
   if (event.target == modalBack) {
     document.getElementById('loginModal-backdrop').classList.toggle("hidden");
-    modal.classList.toggle("hidden");
+    if (!modalLogin.classList.contains('hidden')) {
+      modalLogin.classList.toggle("hidden");
+    }
+    if (!modalRegister.classList.contains('hidden')) {
+      modalRegister.classList.toggle("hidden");
+    }
+
+    //modalRegister.classList.toggle("hidden");
   }
 }
 
 
-class Medicos {
-  constructor(user, password, name, surname, birthdate, profession, specialty) {
+class Medico {
+  constructor(user, password, name, surname, profession, specialty, provincia, ciudad, cp) {
     this.user = user;
     this.password = password;
     this.name = name;
     this.surname = surname;
-    this.birthdate = birthdate;
     this.profession = profession;
     this.specialty = specialty;
+    this.provincia = provincia;
+    this.ciudad = ciudad;
+    this.postalCode = cp;
+
   }
 
 

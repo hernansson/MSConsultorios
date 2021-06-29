@@ -21,7 +21,7 @@
     padding-top: 60px;
 }
 
-   .modal-content {
+   .modal-login {
     background-color: #fefefe;
     margin: 10% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
@@ -33,7 +33,7 @@
 
 @media (max-width: 768px) {
     
-    .modal-content {
+    .modal-login {
     background-color: #fefefe;
     margin: 10% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
@@ -47,7 +47,45 @@
 
      @media (max-width: 468px) {
     
-    .modal-content {
+    .modal-login {
+    background-color: #fefefe;
+    margin: 10% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 300px;
+    height: 200pxpx;
+
+     }
+
+     }
+
+     .modal-register {
+    background-color: #fefefe;
+    margin: 10% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 700px;
+    height: fit-content;
+
+     }
+
+@media (max-width: 768px) {
+    
+    .modal-register {
+    background-color: #fefefe;
+    margin: 10% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 500px;
+    height: 800px;
+
+     }
+
+     }
+
+     @media (max-width: 468px) {
+    
+    .modal-register {
     background-color: #fefefe;
     margin: 10% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
