@@ -1,3 +1,7 @@
+
+/*******************NAVBAR **********************/
+
+
 /*******************LOGIN MODAL **********************/
 .modal {
     display: none;
@@ -121,13 +125,14 @@
 }
 
 /*--------------------CARROUSEL-------------------------------*/
+
 .carousel {
 
 box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.64);
 
 margin-left: 5%;
 margin-right: 5%;
-
+padding-top: 80px;
 
 
 }

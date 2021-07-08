@@ -1,40 +1,38 @@
 
 
-async function logUser(myForm) {
-  var userData;
+document.querySelector('#formUser').addEventListener('submit', validateUser)
+document.querySelector('#userRegister').addEventListener('submit', registerUser)
 
-  await $.getJSON("../userData.JSON", function getData(data, status) {
+function validateUser() {
 
-    userData = validateUser(myForm, data)
 
-  });
-  showData(userData);
-  return userData;
+  $.getJSON("../userData.JSON").success(function (dataJSON) {
+    let i = 0;
+    let userInfo;
+    let myForm = document.querySelector('#formUser')
+    let user = myForm[0].value;
+    let pass = myForm[1].value;
+    let indexUser = validUser(user, pass, dataJSON);
+
+    if (indexUser !== -1) {
+      userInfo = dataJSON[indexUser];
+      let modal = document.getElementById('loginModal');
+      modal.classList.toggle("hidden");
+      showData(userInfo);
+      toggleShaddow();
+    } else {
+      //$('#loginModal')[0].reset();
+      let htmlData = document.querySelector('#pwRedLabel');
+      htmlData.innerHTML = `Contraseña incorrecta. Intente de nuevo`
+      document.querySelector('#password').style.borderColor = 'red';
+      document.querySelector('#password').value = '';
+      document.querySelector('#username').value = '';
+
+    }
+  })
+
 }
 
-function validateUser(myForm, arrayData) {
-  let i = 0;
-  let userInfo;
-
-  let user = myForm[0].value;
-  let pass = myForm[1].value;
-
-  let indexUser = validUser(user, pass, arrayData);
-
-  if (indexUser !== -1) {
-    userInfo = arrayData[indexUser];
-  } else {
-    //$('#loginModal')[0].reset();
-    let htmlData = document.querySelector('#pwRedLabel');
-    htmlData.innerHTML = `Contraseña incorrecta. Intente de nuevo`
-    document.querySelector('#password').style.borderColor = 'red';
-    document.querySelector('#password').value = '';
-    document.querySelector('#username').value = '';
-
-  }
-
-  return userInfo;
-}
 function validUser(user, pass, list) {
 
   let index = list.findIndex(elem => elem.user.toLowerCase() === user);
@@ -49,7 +47,7 @@ function validUser(user, pass, list) {
 function showData(data) {
 
   if (data !== undefined) {
-    let htmlData = document.getElementById("userData");
+    let htmlData = document.getElementById("entregable");
     htmlData.innerHTML = `
       <p> Te has logueado correctamente ${data.user.toUpperCase()} !</p>
     <p>Su trabajo es: ${data.profesion.toUpperCase()}!</p>
@@ -70,29 +68,47 @@ function OpenRegister() {
   hideAll();
 }
 
-function registerUser(myForm) {
+function registerUser() {
 
   //ESTO ME DA GRACIA Y CANCER OCULAR, PERO NO SABIA SI CREAR UNAS VARIABLES, PARA QUE SEA MAS DECLARATIVO, O MANDARLE ASI DE FEO.
+  let myForm = document.querySelector('#userRegister')
+  console.log(myForm)
   const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
-  var innerData = '';
+  let innerData = '';
+  let medicArray = []
+  medicArray.push(newMedic)
 
-
-  let convertirObjArray = Object.values(newMedic);
-  let arrayOrdenadoAsc = convertirObjArray.sort();
-  for (let i = 0; i < 8; i++) {
-
-    innerData = innerData + '<li>' + arrayOrdenadoAsc[i] + '</li>';
-
-  };
-
-  document.querySelector('.academic').innerHTML = innerData;
+  showNewMedics(medicArray)
 
 }
+
+function showNewMedics(array) {
+  let parent = document.querySelector('#academic')
+
+
+
+  for (let medico of array) {
+
+    let newDiv = document.createElement('ul')
+    parent.appendChild(newDiv)
+
+    for (const property in medico) {
+      let li = document.createElement('li')
+      newDiv.appendChild(li)
+      li.innerHTML = `${property}: ${medico[property]}`
+    }
+
+  }
+
+
+
+}
+
 
 function Openform() {
   let modal = document.getElementById('loginModal');
   modal.classList.toggle("hidden");
-  document.getElementById('loginModal-backdrop').classList.toggle("hidden");
+  toggleShaddow();
   //modal.style.display = 'block';
   hideAll();
 
@@ -104,6 +120,10 @@ function hideAll() {
     navToggle.item(i).classList.toggle("hidden");
   }
 }
+
+function toggleShaddow() {
+  document.getElementById('loginModal-backdrop').classList.toggle("hidden");
+}
 document.getElementById("hamburger").onclick = function toggleMenu() {
   const navToggle = document.getElementsByClassName("toggle");
   for (let i = 0; i < navToggle.length; i++) {
@@ -112,6 +132,10 @@ document.getElementById("hamburger").onclick = function toggleMenu() {
 
 };
 
+let btnLogin = document.querySelector('#btnIngresar');
+btnLogin.addEventListener('click', Openform);
+let btnRegister = document.querySelector('#btnRegistrarse');
+btnRegister.addEventListener('click', OpenRegister)
 var counter = 1;
 setInterval(function () {
   document.getElementById('carousel-' + counter).checked = true;
