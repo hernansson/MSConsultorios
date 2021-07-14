@@ -2,11 +2,12 @@
 
 document.querySelector('#formUser').addEventListener('submit', validateUser)
 document.querySelector('#userRegister').addEventListener('submit', registerUser)
+let medicArray = [];
 
 function validateUser() {
 
 
-  $.getJSON("../userData.JSON").success(function (dataJSON) {
+  $.getJSON("../userData.JSON").done(function (dataJSON) {
     let i = 0;
     let userInfo;
     let myForm = document.querySelector('#formUser')
@@ -45,7 +46,8 @@ function validUser(user, pass, list) {
 }
 
 function showData(data) {
-
+  // POR LAS DUDAS DE QUE VEAN ESTE PRIMERO, EN ShowDataMedics() esta con create y append.
+  //Este esta para testear ambas maneras
   if (data !== undefined) {
     let htmlData = document.getElementById("entregable");
     htmlData.innerHTML = `
@@ -72,22 +74,30 @@ function registerUser() {
 
   //ESTO ME DA GRACIA Y CANCER OCULAR, PERO NO SABIA SI CREAR UNAS VARIABLES, PARA QUE SEA MAS DECLARATIVO, O MANDARLE ASI DE FEO.
   let myForm = document.querySelector('#userRegister')
-  console.log(myForm)
   const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
   let innerData = '';
-  let medicArray = []
-  medicArray.push(newMedic)
 
-  showNewMedics(medicArray)
+  medicArray.push(newMedic)
+  console.log(medicArray)
+  // Se hace a pedido de la materia, pero no necesitaria usarlo debido a trabajaria cn BD
+
+  localStorage.setItem('medicos', JSON.stringify(medicArray));
+
+
 
 }
 
-function showNewMedics(array) {
-  let parent = document.querySelector('#academic')
+function showNewMedics() {
 
+  let parent = document.querySelector("#academic")
+  parent.innerHTML = "";
+  var retrievedObject = localStorage.getItem('medicos');
 
+  let medicos = JSON.parse(retrievedObject)
 
-  for (let medico of array) {
+  console.log(medicos)
+
+  for (let medico of medicos) {
 
     let newDiv = document.createElement('ul')
     parent.appendChild(newDiv)
@@ -104,6 +114,9 @@ function showNewMedics(array) {
 
 }
 
+//let parent = document.querySelector('#academic')
+let btnMedic = document.querySelector("#btnListMedic")
+btnMedic.addEventListener('click', showNewMedics);
 
 function Openform() {
   let modal = document.getElementById('loginModal');
