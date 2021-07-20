@@ -1,8 +1,16 @@
+let medicArray = []
+let modalBack = $('#loginModal-backdrop')
+let modalLogin = $('#loginModal');
+let modalRegister = $('#register');
+$('#formUser').submit(validateUser)
+$('#userRegister').submit(registerUser)
+$("#btnListMedic").click(showNewMedics)
+$('#btnIngresar').click(Openform)
 
+let btnRegister = $('#btnRegistrarse');
+btnRegister.click(OpenRegister)
+var counter = 1;
 
-document.querySelector('#formUser').addEventListener('submit', validateUser)
-document.querySelector('#userRegister').addEventListener('submit', registerUser)
-let medicArray = [];
 
 function validateUser() {
 
@@ -10,24 +18,25 @@ function validateUser() {
   $.getJSON("../userData.JSON").done(function (dataJSON) {
     let i = 0;
     let userInfo;
-    let myForm = document.querySelector('#formUser')
+    let idForm = $('#formUser')
+    let myForm = idForm[0]
     let user = myForm[0].value;
     let pass = myForm[1].value;
     let indexUser = validUser(user, pass, dataJSON);
 
     if (indexUser !== -1) {
       userInfo = dataJSON[indexUser];
-      let modal = document.getElementById('loginModal');
-      modal.classList.toggle("hidden");
+
+      modalLogin[0].classList.toggle("hidden");
       showData(userInfo);
       toggleShaddow();
     } else {
       //$('#loginModal')[0].reset();
-      let htmlData = document.querySelector('#pwRedLabel');
-      htmlData.innerHTML = `Contraseña incorrecta. Intente de nuevo`
-      document.querySelector('#password').style.borderColor = 'red';
-      document.querySelector('#password').value = '';
-      document.querySelector('#username').value = '';
+      let htmlData = $('#pwRedLabel');
+      htmlData[0].innerHTML = `Contraseña incorrecta. Intente de nuevo`
+      $('#password')[0].style.borderColor = 'red';
+      $('#password')[0].value = '';
+      $('#username')[0].value = '';
 
     }
   })
@@ -49,31 +58,42 @@ function showData(data) {
   // POR LAS DUDAS DE QUE VEAN ESTE PRIMERO, EN ShowDataMedics() esta con create y append.
   //Este esta para testear ambas maneras
   if (data !== undefined) {
-    let htmlData = document.getElementById("entregable");
-    htmlData.innerHTML = `
-      <p> Te has logueado correctamente ${data.user.toUpperCase()} !</p>
-    <p>Su trabajo es: ${data.profesion.toUpperCase()}!</p>
-    <p>Su DNI es: ${data.DNI}!</p>
-    `
+
+
+    let p1 = document.createElement("p")
+    p1.textContent = ` Te has logueado correctamente ${data.user.toUpperCase()} !`
+    let p2 = document.createElement("p")
+    p2.textContent = ` Su trabajo es: ${data.profesion.toUpperCase()}!`
+    let p3 = document.createElement("p")
+    p2.textContent = ` Su DNI es: ${data.DNI}!`
+
+    let div1 = document.createElement("div")
+    div1.appendChild(p1)
+    div1.appendChild(p2)
+    div1.appendChild(p3)
+
+    let htmlData = $("#entregable");
+    htmlData[0].prepend(div1)
+
 
   } else {
-    document.getElementById("userData").innerHTML = "BANEADO";
+    $("#userData")[0].append("BANEADO");
   }
 
 }
 
 function OpenRegister() {
-  let modal = document.getElementById('register');
-  modal.classList.toggle("hidden");
-  document.getElementById('loginModal-backdrop').classList.toggle("hidden");
-  //modal.style.display = 'block';
+
+  modalRegister[0].classList.toggle("hidden");
+  toggleShaddow()
   hideAll();
 }
 
 function registerUser() {
 
   //ESTO ME DA GRACIA Y CANCER OCULAR, PERO NO SABIA SI CREAR UNAS VARIABLES, PARA QUE SEA MAS DECLARATIVO, O MANDARLE ASI DE FEO.
-  let myForm = document.querySelector('#userRegister')
+  let idForm = $('#userRegister')
+  let myForm = idForm[0]
   const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
   let innerData = '';
 
@@ -83,14 +103,19 @@ function registerUser() {
 
   localStorage.setItem('medicos', JSON.stringify(medicArray));
 
+  modalRegister[0].classList.toggle('hidden')
+  toggleShaddow()
+  btnRegister[0].style.display = "none"
+
 
 
 }
 
 function showNewMedics() {
 
-  let parent = document.querySelector("#academic")
-  parent.innerHTML = "";
+  let parent = $("#academic")
+
+  parent[0].innerData = ""
   var retrievedObject = localStorage.getItem('medicos');
 
   let medicos = JSON.parse(retrievedObject)
@@ -100,7 +125,7 @@ function showNewMedics() {
   for (let medico of medicos) {
 
     let newDiv = document.createElement('ul')
-    parent.appendChild(newDiv)
+    parent[0].appendChild(newDiv)
 
     for (const property in medico) {
       let li = document.createElement('li')
@@ -114,13 +139,10 @@ function showNewMedics() {
 
 }
 
-//let parent = document.querySelector('#academic')
-let btnMedic = document.querySelector("#btnListMedic")
-btnMedic.addEventListener('click', showNewMedics);
 
 function Openform() {
-  let modal = document.getElementById('loginModal');
-  modal.classList.toggle("hidden");
+
+  modalLogin[0].classList.toggle("hidden");
   toggleShaddow();
   //modal.style.display = 'block';
   hideAll();
@@ -128,14 +150,14 @@ function Openform() {
 }
 
 function hideAll() {
-  const navToggle = document.getElementsByClassName("toggle");
-  for (let i = 0; i < navToggle.length; i++) {
+  const navToggle = $(".toggle");
+  for (let i = 0; i < navToggle[0].length; i++) {
     navToggle.item(i).classList.toggle("hidden");
   }
 }
 
 function toggleShaddow() {
-  document.getElementById('loginModal-backdrop').classList.toggle("hidden");
+  modalBack[0].classList.toggle("hidden");
 }
 document.getElementById("hamburger").onclick = function toggleMenu() {
   const navToggle = document.getElementsByClassName("toggle");
@@ -145,13 +167,10 @@ document.getElementById("hamburger").onclick = function toggleMenu() {
 
 };
 
-let btnLogin = document.querySelector('#btnIngresar');
-btnLogin.addEventListener('click', Openform);
-let btnRegister = document.querySelector('#btnRegistrarse');
-btnRegister.addEventListener('click', OpenRegister)
-var counter = 1;
+
 setInterval(function () {
-  document.getElementById('carousel-' + counter).checked = true;
+  let carousel = $('#carousel-' + counter)
+  carousel[0].checked = true;
   counter++;
   if (counter > 4) {
     counter = 1;
@@ -161,20 +180,19 @@ setInterval(function () {
 
 
 // ESTO ESTA PARA EL ORTO PERO FUNCIONA.. 
-let modalBack = document.getElementById('loginModal-backdrop')
-let modalLogin = document.getElementById('loginModal');
-let modalRegister = document.getElementById('register');
+
 window.onclick = function (event) {
-  if (event.target == modalBack) {
-    document.getElementById('loginModal-backdrop').classList.toggle("hidden");
-    if (!modalLogin.classList.contains('hidden')) {
-      modalLogin.classList.toggle("hidden");
+
+  if (event.target == modalBack[0]) {
+    modalBack[0].classList.toggle("hidden");
+    if (!modalLogin[0].classList.contains('hidden')) {
+      modalLogin[0].classList.toggle("hidden");
     }
-    if (!modalRegister.classList.contains('hidden')) {
-      modalRegister.classList.toggle("hidden");
+    if (!modalRegister[0].classList.contains('hidden')) {
+      modalRegister[0].classList.toggle("hidden");
     }
 
-    //modalRegister.classList.toggle("hidden");
+
   }
 }
 
