@@ -283,3 +283,11 @@ display: grid;
 
      }
 
+#academic{
+    display: none;
+}
+
+.listaMedicos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

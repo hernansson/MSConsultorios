@@ -1,11 +1,16 @@
-let medicArray = []
+
+let medicos = []
 let modalBack = $('#loginModal-backdrop')
 let modalLogin = $('#loginModal');
 let modalRegister = $('#register');
 $('#formUser').submit(validateUser)
 $('#userRegister').submit(registerUser)
-$("#btnListMedic").click(showNewMedics)
+$("#btnListMedic").click(function(){
+  showNewMedics()
+  $("#academic").slideToggle("slow")
+})
 $('#btnIngresar').click(Openform)
+
 
 let btnRegister = $('#btnRegistrarse');
 btnRegister.click(OpenRegister)
@@ -95,13 +100,25 @@ function registerUser() {
   let idForm = $('#userRegister')
   let myForm = idForm[0]
   const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
-  let innerData = '';
+  
+  var retrievedObject = localStorage.getItem('medicos');
 
-  medicArray.push(newMedic)
-  console.log(medicArray)
+  if(retrievedObject == null){
+    console.log("SE CREA POR PRIMERA VEZ")
+    medicos.push(newMedic)
+    console.log(medicos)
   // Se hace a pedido de la materia, pero no necesitaria usarlo debido a trabajaria cn BD
+  localStorage.setItem('medicos', JSON.stringify(medicos));
+  }
+  else{
+    medicos = JSON.parse(retrievedObject)
+    medicos.push(newMedic)
+    localStorage.setItem('medicos', JSON.stringify(medicos));
 
-  localStorage.setItem('medicos', JSON.stringify(medicArray));
+  }
+ 
+
+  
 
   modalRegister[0].classList.toggle('hidden')
   toggleShaddow()
@@ -113,9 +130,9 @@ function registerUser() {
 
 function showNewMedics() {
 
-  let parent = $("#academic")
+  let parent = $(".listaMedicos")
 
-  parent[0].innerData = ""
+  parent[0].innerHTML = ""
   var retrievedObject = localStorage.getItem('medicos');
 
   let medicos = JSON.parse(retrievedObject)
@@ -135,6 +152,7 @@ function showNewMedics() {
 
   }
 
+  
 
 
 }
@@ -215,3 +233,4 @@ class Medico {
 
 
 }
+
