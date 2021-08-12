@@ -9,8 +9,9 @@
     <!--Custom CSS-->
 
     <link href="./css/tailwind.css" rel="stylesheet" />
-    <link href="./css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../src/tailwind.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+
 
     <style>
 
@@ -42,13 +43,16 @@
             <a href="#"
                 class="block md:inline-block text-blue-100 hover:text-blue-500 px-3 py-3 border-b-2 border-blue-100 md:border-none">Contact</a>
         </div>
-        <div class="flex gap-x-2">
-            <a href="#"
+        <div class="flex gap-x-2" id="loginDiv">
+            <button
+                class="md:flex w-full md:w-auto px-4 py-2  text-center bg-blue-500 hover:bg-blue-600 text-white md:rounded"
+                id="btnListMedic">LISTA MEDICOS</button>
+            <button href="#"
                 class="toggle hidden md:flex w-full md:w-auto px-4 py-2  text-center bg-blue-500 hover:bg-blue-600 text-white md:rounded"
-                type="button" id="btnIngresar">Ingresar</a>
-            <a href="#"
-                class="toggle hidden md:flex w-full md:w-auto px-4 py-2  text-center bg-blue-500 hover:bg-blue-600 text-white md:rounded"
-                type="button" id="btnRegistrarse">Registrarse</a>
+                type="button" id="btnIngresar">Ingresar</button>
+            <button href="#"
+                class="toggle hidden md:flex  w-full md:w-auto px-4 py-2  text-center bg-blue-500 hover:bg-blue-600 text-white md:rounded"
+                type="button" id="btnRegistrarse">Registrarse</button>
         </div>
     </nav>
 
@@ -102,10 +106,8 @@
 
     <!---------------------------------------ENTREGABLE---------------------------------------->
 
-    <div id="entregable" class="py-2">
-    <button class="md:flex w-full md:w-auto px-4 py-2  text-center bg-blue-500 hover:bg-blue-600 text-white md:rounded"
-        id="btnListMedic">LISTA MEDICOS</button>
-     
+    <div id="entregable" class="py-2 text-center"></div>
+
     </div>
     <div id="academic">
         <div class="listaMedicos"></div>
@@ -305,8 +307,9 @@
                         Usuario
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-username" type="text" placeholder="Usuario">
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-username" type="text" placeholder="Usuario" required="true">
                     <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
                 <div class="w-full md:w-1/2 px-3">
@@ -315,8 +318,9 @@
                         Contraseña
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-grid-password" type="text" placeholder="*****************">
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-grid-password" type="text" placeholder="*****************" required="true">
                     <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
             </div>
@@ -327,8 +331,9 @@
                         Nombre
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="text" placeholder="Jane">
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-first-name" type="text" placeholder="Jane" required="true">
                     <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
                 <div class="w-full md:w-1/2 px-3">
@@ -337,8 +342,9 @@
                         Apellido
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-last-name" type="text" placeholder="Doe">
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-last-name" type="text" placeholder="Doe" required="true">
                     <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
             </div>
@@ -349,17 +355,19 @@
                         Profesion
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-profession" type="text" placeholder="Medico">
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-profession" type="text" placeholder="Medico" required="true">
                     <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
                 <div class="w-full md:w-1/2 px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-specialty">
+                        for="grid-specialty" required="true">
                         Especialidad
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id="grid-specialty" type="text" placeholder="Gastroenterologia">
                     <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
@@ -371,7 +379,8 @@
                     </label>
                     <div class="relative">
                         <select
-                            class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            class="block 
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-state">
                             <option>Buenos Aires</option>
                             <option>Cordoba</option>
@@ -390,8 +399,9 @@
                         Ciudad
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="grid-city" type="text" placeholder="Albuquerque">
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-city" type="text" placeholder="Albuquerque" required="true">
                 </div>
 
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -399,8 +409,9 @@
                         Codigo Postal
                     </label>
                     <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="grid-zip" type="text" placeholder="90210">
+                        class="
+appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-zip" type="number" placeholder="90210" required="true">
                 </div>
 
                 <div class="mt-4 w-full ml-50  ">

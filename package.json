@@ -6,8 +6,10 @@
     "tailwindcss": "^2.2.4"
   },
   "scripts": {
-    "build:css": "postcss ./src/tailwind.css -o ./public/css/main.css",
-    "build:a": "NODE_ENV=production postcss ./src/tailwind.css -o ./public/css/main.css"
+    "build:css": "postcss ./public/css/style.css -o ./public/css/tailwind.css",
+    "build:a": "NODE_ENV=production postcss ./src/tailwind.css -o ./public/css/tailwind.css",
+    "build:tailwind": "postcss ./public/css/style.css -o ./public/css/prueba.css",
+    "build:css2": "npx tailwindcss-cli@latest build -i ./public/css/style.css -o ./public/css/prueba.css"
   },
   "dependencies": {
     "win-node-env": "^0.4.0"

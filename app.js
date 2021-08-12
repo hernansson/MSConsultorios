@@ -1,24 +1,43 @@
+/* */
 
+/* DECLARACION DE VARIABLES: Array, Class uso de jQuery*/
 let medicos = []
 let modalBack = $('#loginModal-backdrop')
 let modalLogin = $('#loginModal');
 let modalRegister = $('#register');
+let btnIngresar = $('#btnIngresar');
+let btnRegister = $('#btnRegistrarse');
+btnIngresar.click(Openform)
+btnRegister.click(OpenRegister)
+var counter = 1;
+class Medico {
+  constructor(user, password, name, surname, profession, specialty, provincia, ciudad, cp) {
+    this.user = user;
+    this.password = password;
+    this.name = name;
+    this.surname = surname;
+    this.profession = profession;
+    this.specialty = specialty;
+    this.provincia = provincia;
+    this.ciudad = ciudad;
+    this.postalCode = cp;
+
+  }
+}
+
+/* Uso de Jquery con ANIMACION*/
 $('#formUser').submit(validateUser)
 $('#userRegister').submit(registerUser)
-$("#btnListMedic").click(function(){
+$("#btnListMedic").click(function () {
   showNewMedics()
   $("#academic").slideToggle("slow")
 })
-$('#btnIngresar').click(Openform)
 
 
-let btnRegister = $('#btnRegistrarse');
-btnRegister.click(OpenRegister)
-var counter = 1;
+/* Funciones de validacion de usuario - se hace una llamada a un archivo JSON y se valida si es un usuario */
 
-
-function validateUser() {
-
+function validateUser(e) {
+  e.preventDefault()
 
   $.getJSON("../userData.JSON").done(function (dataJSON) {
     let i = 0;
@@ -34,6 +53,8 @@ function validateUser() {
 
       modalLogin[0].classList.toggle("hidden");
       showData(userInfo);
+      btnIngresar.toggle("hidden")
+      btnRegister.toggle("hidden")
       toggleShaddow();
     } else {
       //$('#loginModal')[0].reset();
@@ -59,6 +80,101 @@ function validUser(user, pass, list) {
 
 }
 
+
+/*Registro de usuarios medicos, aca usamos el localStorage a fines de la materia*/
+
+
+
+function OpenRegister() {
+
+  modalRegister[0].classList.toggle("hidden");
+  toggleShaddow()
+  hideAll();
+}
+
+function registerUser(e) {
+
+  e.preventDefault()
+  let idForm = $('#userRegister')
+  let myForm = idForm[0]
+  const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
+
+  var retrievedObject = localStorage.getItem('medicos');
+
+  if (retrievedObject == null) {
+    console.log("SE CREA POR PRIMERA VEZ")
+    medicos.push(newMedic)
+    console.log(medicos)
+    // Se hace a pedido de la materia, pero no necesitaria usarlo debido a trabajaria cn BD
+    localStorage.setItem('medicos', JSON.stringify(medicos));
+  }
+  else {
+    medicos = JSON.parse(retrievedObject)
+    medicos.push(newMedic)
+    localStorage.setItem('medicos', JSON.stringify(medicos));
+
+  }
+
+
+
+
+  modalRegister[0].classList.toggle('hidden')
+  toggleShaddow()
+
+
+
+
+}
+
+
+/* Funciones para mostrar datos tanto con innerHTML como con jQuery para mejores practicas y mostrar ambas formas*/
+
+function showNewMedics() {
+
+  let parent = $(".listaMedicos")
+
+  parent[0].innerHTML = ""
+  var retrievedObject = localStorage.getItem('medicos');
+
+  let medicos = JSON.parse(retrievedObject)
+
+  console.log(medicos)
+
+  for (let medico of medicos) {
+
+    let newDiv = document.createElement('ul')
+    parent[0].appendChild(newDiv)
+
+
+    let liName = document.createElement('li')
+    liName.textContent = `Nombre: ${medico.name} ${medico.surname}`
+    newDiv.appendChild(liName)
+
+    let liProf = document.createElement('li')
+    liProf.textContent = `Profesion: ${medico.profesion}`
+    newDiv.appendChild(liProf)
+
+    let liSp = document.createElement('li')
+    liSp.textContent = `Especialidad: ${medico.specialty}`
+    newDiv.appendChild(liSp)
+
+    let liCity = document.createElement('li')
+    liCity.textContent = `Ciudad: ${medico.ciudad}`
+    newDiv.appendChild(liCity)
+
+
+
+
+
+
+
+
+  }
+
+
+
+
+}
 function showData(data) {
   // POR LAS DUDAS DE QUE VEAN ESTE PRIMERO, EN ShowDataMedics() esta con create y append.
   //Este esta para testear ambas maneras
@@ -87,76 +203,8 @@ function showData(data) {
 
 }
 
-function OpenRegister() {
 
-  modalRegister[0].classList.toggle("hidden");
-  toggleShaddow()
-  hideAll();
-}
-
-function registerUser() {
-
-  //ESTO ME DA GRACIA Y CANCER OCULAR, PERO NO SABIA SI CREAR UNAS VARIABLES, PARA QUE SEA MAS DECLARATIVO, O MANDARLE ASI DE FEO.
-  let idForm = $('#userRegister')
-  let myForm = idForm[0]
-  const newMedic = new Medico(myForm[0].value, myForm[1].value, myForm[2].value, myForm[3].value, myForm[4].value, myForm[5].value, myForm[6].value, myForm[7].value, myForm[8].value)
-  
-  var retrievedObject = localStorage.getItem('medicos');
-
-  if(retrievedObject == null){
-    console.log("SE CREA POR PRIMERA VEZ")
-    medicos.push(newMedic)
-    console.log(medicos)
-  // Se hace a pedido de la materia, pero no necesitaria usarlo debido a trabajaria cn BD
-  localStorage.setItem('medicos', JSON.stringify(medicos));
-  }
-  else{
-    medicos = JSON.parse(retrievedObject)
-    medicos.push(newMedic)
-    localStorage.setItem('medicos', JSON.stringify(medicos));
-
-  }
- 
-
-  
-
-  modalRegister[0].classList.toggle('hidden')
-  toggleShaddow()
-  btnRegister[0].style.display = "none"
-
-
-
-}
-
-function showNewMedics() {
-
-  let parent = $(".listaMedicos")
-
-  parent[0].innerHTML = ""
-  var retrievedObject = localStorage.getItem('medicos');
-
-  let medicos = JSON.parse(retrievedObject)
-
-  console.log(medicos)
-
-  for (let medico of medicos) {
-
-    let newDiv = document.createElement('ul')
-    parent[0].appendChild(newDiv)
-
-    for (const property in medico) {
-      let li = document.createElement('li')
-      newDiv.appendChild(li)
-      li.innerHTML = `${property}: ${medico[property]}`
-    }
-
-  }
-
-  
-
-
-}
-
+/* Manejo de modals para que resalten mientras otros se ocultan*/
 
 function Openform() {
 
@@ -177,6 +225,9 @@ function hideAll() {
 function toggleShaddow() {
   modalBack[0].classList.toggle("hidden");
 }
+
+
+/* RESPONSIVE NAVBAR*/
 document.getElementById("hamburger").onclick = function toggleMenu() {
   const navToggle = document.getElementsByClassName("toggle");
   for (let i = 0; i < navToggle.length; i++) {
@@ -185,6 +236,8 @@ document.getElementById("hamburger").onclick = function toggleMenu() {
 
 };
 
+
+/*  Carrousel pasa de imagen cada 3 seg */
 
 setInterval(function () {
   let carousel = $('#carousel-' + counter)
@@ -197,7 +250,8 @@ setInterval(function () {
 }, 3000);
 
 
-// ESTO ESTA PARA EL ORTO PERO FUNCIONA.. 
+
+/* Manejo del background y su opacidad cuando aparecen los modals. */
 
 window.onclick = function (event) {
 
@@ -214,23 +268,4 @@ window.onclick = function (event) {
   }
 }
 
-
-class Medico {
-  constructor(user, password, name, surname, profession, specialty, provincia, ciudad, cp) {
-    this.user = user;
-    this.password = password;
-    this.name = name;
-    this.surname = surname;
-    this.profession = profession;
-    this.specialty = specialty;
-    this.provincia = provincia;
-    this.ciudad = ciudad;
-    this.postalCode = cp;
-
-  }
-
-
-
-
-}
 
