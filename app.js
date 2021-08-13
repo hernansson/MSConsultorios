@@ -152,7 +152,7 @@ function showNewMedics() {
     newUl.appendChild(liName)
 
     let liProf = document.createElement('li')
-    liProf.textContent = `Profesion: ${medico.profesion}`
+    liProf.textContent = `Profesion: ${medico.profession}`
     newUl.appendChild(liProf)
 
     let liSp = document.createElement('li')
