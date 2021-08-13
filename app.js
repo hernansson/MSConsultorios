@@ -138,34 +138,30 @@ function showNewMedics() {
 
   let medicos = JSON.parse(retrievedObject)
 
-  console.log(medicos)
+
 
   for (let medico of medicos) {
 
-    let newDiv = document.createElement('ul')
-    parent[0].appendChild(newDiv)
+    let newUl = document.createElement('ul')
+
+    parent[0].appendChild(newUl)
 
 
     let liName = document.createElement('li')
     liName.textContent = `Nombre: ${medico.name} ${medico.surname}`
-    newDiv.appendChild(liName)
+    newUl.appendChild(liName)
 
     let liProf = document.createElement('li')
     liProf.textContent = `Profesion: ${medico.profesion}`
-    newDiv.appendChild(liProf)
+    newUl.appendChild(liProf)
 
     let liSp = document.createElement('li')
     liSp.textContent = `Especialidad: ${medico.specialty}`
-    newDiv.appendChild(liSp)
+    newUl.appendChild(liSp)
 
     let liCity = document.createElement('li')
     liCity.textContent = `Ciudad: ${medico.ciudad}`
-    newDiv.appendChild(liCity)
-
-
-
-
-
+    newUl.appendChild(liCity)
 
 
 
